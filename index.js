@@ -95,7 +95,7 @@ async function updatePhoneNumber(chotot_post_id){
 
 async function run(){
   while(true){
-    const postIds = await getListIds(2)
+    const postIds = await getListIds(10)
     console.log("🚀 ~ file: index.js:90 ~ run ~ postIds:", postIds)
 
     for( let i = 0 ; i < postIds.length ; i ++){
