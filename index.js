@@ -41,7 +41,8 @@ async function getPhoneNumber(postId){
   }catch(err){
     console.log(err)
     await browser.close()
-    return 9999999999
+    deletePhoneNumber(postId)
+    return null
   }
 }
 
@@ -88,6 +89,26 @@ async function updatePhoneNumber(chotot_post_id){
     console.log(JSON.stringify(response.data));
   })
   .catch((error) => {
+    console.log(error);
+  });
+
+}
+
+async function deletePhoneNumber(postId){
+  let config = {
+    method: 'post',
+    maxBodyLength: Infinity,
+    url: `http://194.233.80.128:4000/delete_chotot_post?chotot_post_id=${postId}`,
+    headers: { }
+  };
+
+  axios.request(config)
+  .then((response) => {
+    console.log('deletePhoneNumber success')
+    console.log(JSON.stringify(response.data));
+  })
+  .catch((error) => {
+    console.log('deletePhoneNumber error')
     console.log(error);
   });
 
