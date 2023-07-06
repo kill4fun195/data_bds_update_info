@@ -28,11 +28,12 @@ async function getPhoneNumber(postId){
       const url = response.url();
       if(response.url().includes("/phone?")){
         const responseText = await response.text();
+        console.log("responseText: " + responseText)
         try{ phoneNumber = JSON.parse(responseText)['phone'] }catch{phoneNumber = ""}
       }
     });
 
-    var btnGetPhone = await page.waitForSelector('[class^="InlineShowPhoneMobile"]',{timeout: 5000});
+    var btnGetPhone = await page.waitForSelector('[class^="InlineShowPhoneButton"]',{timeout: 5000});
     await btnGetPhone.click();
     await page.waitForTimeout(700);
     await browser.close()
@@ -117,6 +118,7 @@ async function deletePhoneNumber(postId){
 async function run(){
   while(true){
     const postIds = await getListIds(10)
+    // const postIds = ['107824997']
     console.log("🚀 ~ file: index.js:90 ~ run ~ postIds:", postIds)
 
     for( let i = 0 ; i < postIds.length ; i ++){
