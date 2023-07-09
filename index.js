@@ -7,9 +7,10 @@ const axios = require('axios');
 
 puppeteer.use(stealthPlugin);
 
+const chromePath = chromePaths.chrome;
+
 async function getPhoneNumber(postId){
   const postUrl = `https://www.nhatot.com/${postId}.htm`
-  var chromePath = chromePaths.chrome
 
   const browser = await puppeteer.launch({
             executablePath: chromePath,
@@ -118,13 +119,17 @@ async function deletePhoneNumber(postId){
 async function run(){
   while(true){
     const postIds = await getListIds(10)
-    // const postIds = ['107824997']
+    // const postIds = ['107864656']
     console.log("🚀 ~ file: index.js:90 ~ run ~ postIds:", postIds)
 
     for( let i = 0 ; i < postIds.length ; i ++){
-      var postId = postIds[i]
-      console.log("🚀 ~ file: index.js:114 ~ run ~ postId:", postId)
-      await updatePhoneNumber(postId)
+      try{
+        var postId = postIds[i]
+        console.log("🚀 ~ file: index.js:114 ~ run ~ postId:", postId)
+        await updatePhoneNumber(postId)
+      }catch(err){
+        console.log(err)
+      }
     }
   }
 }
